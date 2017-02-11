@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>Great Number Game</title>
+    <!-- linking a css style sheet -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+  <div id="wrapper"
+    <h3>Welcome to the Great Number Game!</h3>
+    <p>I am thinking of a number between 1 and 100</p>
+    <p>Take a guess!</p>
+
+    <!-- This code varies depending on the comparison of answer vs guess -->
+    <!-- <p>{{session.answer}}</p> -->
+    {% if session['compare'] == 'low' %}
+      <h2 class="redbox">Too low!</h2>
+    {% elif session['compare'] == 'high' %}
+      <h2 class="redbox">Too high!</h2>
+    {% elif session['compare'] == 'match' %}
+      <h2 class="greenbox">{{session['guess']}} was the number!</h2>
+      <form action='/restart' method='post'>
+        <button>Play again!</button></form>
+    {% else %}  <!--just initialized -->
+    {% endif %}
+
+    <form action='/attempt' method='post'>
+      <input type="text" name="guess">
+      <input type='submit' name='btn' value='Submit'>
+    </form>
+  </div>
+  </body>
+</html>

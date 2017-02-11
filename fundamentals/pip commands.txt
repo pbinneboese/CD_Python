@@ -1,0 +1,96 @@
+/* per Wikipedia, PIP is a package management system used to install and manage software packages written in Python. Many packages can be found in the Python Package Indes (PyPI). */
+
+/* install Django, a web framework written in Python, following the model-view-template (MVT) architectural pattern. Django eases the creation of complex, database-driven websites. */
+1. pip install Django
+PB-MacBook-Pro:~ guest$ pip install Django
+Collecting Django
+  Downloading Django-1.10.5-py2.py3-none-any.whl (6.8MB)
+    100% |████████████████████████████████| 6.8MB 120kB/s 
+Installing collected packages: Django
+Successfully installed Django-1.10.5
+
+2. pip list /* list all intalled pip modules & versions */
+PB-MacBook-Pro:~ guest$ pip list
+click (6.7)
+Django (1.10.5)
+Flask (0.12)
+itsdangerous (0.24)
+Jinja2 (2.9.5)
+MarkupSafe (0.23)
+pip (9.0.1)
+setuptools (32.1.0)
+Werkzeug (0.11.15)
+wheel (0.29.0)
+
+3. pip install Django /* already installed, and associated with Python version 2.7 library */
+PB-MacBook-Pro:~ guest$ pip install Django
+Requirement already satisfied: Django in /usr/local/lib/python2.7/site-packages
+
+4. pip freeze (What's the difference between freeze and list?)
+/* freeze                      Output installed packages in requirements format.
+   list                        List installed packages. */
+PB-MacBook-Pro:~ guest$ pip freeze
+click==6.7
+Django==1.10.5
+Flask==0.12
+itsdangerous==0.24
+Jinja2==2.9.5
+MarkupSafe==0.23
+Werkzeug==0.11.15
+/* note that "pip freeze " does not list pip, setuptools or wheel modules */
+
+5. pip freeze from Desktop folder
+/* after cd'ing to the Desktop folder, the "pip freeze" command output is redirected into the "requirements.txt" file. Viewing it shows the same output that was displayed on the console earlier. */
+PB-MacBook-Pro:Desktop guest$ pip freeze >requirements.txt
+PB-MacBook-Pro:Desktop guest$ cat requirements.txt
+click==6.7
+Django==1.10.5
+Flask==0.12
+itsdangerous==0.24
+Jinja2==2.9.5
+MarkupSafe==0.23
+Werkzeug==0.11.15
+
+6. pip uninstall Django
+/* uninstall the Django package. It lists all of the files it will uninstall, then after the prompt, it performs the uninstall.
+PB-MacBook-Pro:Desktop guest$ pip uninstall Django
+Uninstalling Django-1.10.5:
+  /usr/local/bin/django-admin
+  /usr/local/bin/django-admin.py
+  /usr/local/bin/django-admin.pyc
+  /usr/local/lib/python2.7/site-packages/Django-1.10.5.dist-info/DESCRIPTION.rst
+  /usr/local/lib/python2.7/site-packages/Django-1.10.5.dist-info/INSTALLER
+  /usr/local/lib/python2.7/site-packages/Django-1.10.5.dist-info/LICENSE.txt
+  /usr/local/lib/python2.7/site-packages/Django-1.10.5.dist-info/METADATA
+  /usr/local/lib/python2.7/site-packages/Django-1.10.5.dist-info/RECORD
+  /usr/local/lib/python2.7/site-packages/Django-1.10.5.dist-info/WHEEL
+  /usr/local/lib/python2.7/site-packages/Django-1.10.5.dist-info/entry_points.txt
+  /usr/local/lib/python2.7/site-packages/Django-1.10.5.dist-info/metadata.json
+  /usr/local/lib/python2.7/site-packages/Django-1.10.5.dist-info/top_level.txt
+  /* about a million other files */
+  Proceed (y/n)? y
+  Successfully uninstalled Django-1.10.5
+  
+7. pip show Django /* it returns nothing because Django is not installed */
+PB-MacBook-Pro:Desktop guest$ pip show Django
+PB-MacBook-Pro:Desktop guest$ 
+
+8. pip search Flask /* searches PyPI library for all pips referencing Flask */
+PB-MacBook-Pro:Desktop guest$ pip search Flask
+Flask-User-05 (0.5)                           - Customizable User Account
+                                                Management for Flask:
+                                                Register, Confirm email,
+                                                Login, Change username, Change
+                                                password, Forgot password and
+                                                more.
+flask-restless-swagger-2 (0.0.3)              - Magically create swagger
+                                                documentation as you magically
+                                                create your RESTful API
+flask-restful-swagger-2 (0.33)                - Extract swagger specs from
+                                                your flask-restful project.
+                                                Project based on flask-
+                                                restful-swagger by Ran Tavory.
+3color-Press (0.2.1)                          - A Flask based static site
+                                                generator for comics
+/* and about a million others */
+                                                

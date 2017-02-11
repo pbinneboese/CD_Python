@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <title>Dojo Survey Index</title>
+    <!-- linking a css style sheet -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    <h1>Submitted Info</h1>
+    <div id="resultsBox">
+      <table>
+        <thead>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Name:</td>
+            <td>{{ name }}</td>
+          </tr>
+          <tr>
+            <td>Dojo Location:</td>
+            <td>{{ location }}</td>
+          </tr>
+          <tr>
+            <td>Favorite Language:</td>
+            <td>{{ language }}</td>
+          </tr>
+          <tr>
+            <td>Comment:</td>
+            <td>{{ comment }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <form action='/' method='get'>
+        <input type='submit' value='Go Back'>
+      </form>
+    </div>
+  </body>
+</html>

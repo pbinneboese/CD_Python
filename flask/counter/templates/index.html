@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <title>Counter Exercise</title>
+    <!-- linking a css style sheet -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    <h1>Counter</h1>
+    <p>{{session['counter']}} times.</p>
+
+    <form action='/count' method='post'>
+      <input type='submit' name='btn' value='increment'>
+    </form>
+    <form action='/count' method='post'>
+      <input type='submit' name='btn' value='reset'>
+    </form>
+  </body>
+</html>

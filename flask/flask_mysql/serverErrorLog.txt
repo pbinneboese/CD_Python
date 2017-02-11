@@ -1,0 +1,204 @@
+/* Error with wrong database table (users, should be states) */
+
+(py2FlaskEnv) PB-MacBook-Pro:flask_mysql guest$ python server.py
+Traceback (most recent call last):
+  File "server.py", line 8, in <module>
+    print mysql.query_db("SELECT * FROM users")
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/flask/flask_mysql/mysqlconnection.py", line 22, in query_db
+    result = self.db.session.execute(text(query), data)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/orm/scoping.py", line 157, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1107, in execute
+    bind, close_with_result=True).execute(clause, params or {})
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 945, in execute
+    return meth(self, multiparams, params)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 263, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1053, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1189, in _execute_context
+    context)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1393, in _handle_dbapi_exception
+    exc_info
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 203, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1182, in _execute_context
+    context)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 470, in do_execute
+    cursor.execute(statement, parameters)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/MySQLdb/cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/MySQLdb/connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+sqlalchemy.exc.ProgrammingError: (_mysql_exceptions.ProgrammingError) (1146, "Table 'mydb.users' doesn't exist") [SQL: u'SELECT * FROM users']
+
+
+/* With wrong database (twitter, should be mydb) */
+
+(py2FlaskEnv) PB-MacBook-Pro:flask_mysql guest$ python server.py
+Traceback (most recent call last):
+  File "server.py", line 8, in <module>
+    print mysql.query_db("SELECT * FROM states")
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/flask/flask_mysql/mysqlconnection.py", line 22, in query_db
+    result = self.db.session.execute(text(query), data)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/orm/scoping.py", line 157, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1107, in execute
+    bind, close_with_result=True).execute(clause, params or {})
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 945, in execute
+    return meth(self, multiparams, params)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 263, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1053, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1189, in _execute_context
+    context)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1393, in _handle_dbapi_exception
+    exc_info
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 203, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1182, in _execute_context
+    context)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 470, in do_execute
+    cursor.execute(statement, parameters)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/MySQLdb/cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/MySQLdb/connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+sqlalchemy.exc.ProgrammingError: (_mysql_exceptions.ProgrammingError) (1146, "Table 'twitter.states' doesn't exist") [SQL: u'SELECT * FROM states']
+
+/* With wrong port (8889, should be 3306) */
+
+(py2FlaskEnv) PB-MacBook-Pro:flask_mysql guest$ python server.py
+Traceback (most recent call last):
+  File "server.py", line 8, in <module>
+    print mysql.query_db("SELECT * FROM states")
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/flask/flask_mysql/mysqlconnection.py", line 22, in query_db
+    result = self.db.session.execute(text(query), data)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/orm/scoping.py", line 157, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1107, in execute
+    bind, close_with_result=True).execute(clause, params or {})
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 971, in _connection_for_bind
+    engine, execution_options)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 403, in _connection_for_bind
+    conn = bind.contextual_connect()
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 2103, in contextual_connect
+    self._wrap_pool_connect(self.pool.connect, None),
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 2142, in _wrap_pool_connect
+    e, dialect, self)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1456, in _handle_dbapi_exception_noconnection
+    exc_info
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 203, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 2138, in _wrap_pool_connect
+    return fn()
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/pool.py", line 387, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/pool.py", line 766, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/pool.py", line 516, in checkout
+    rec = pool._do_get()
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/pool.py", line 1138, in _do_get
+    self._dec_overflow()
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/util/langhelpers.py", line 60, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/pool.py", line 1135, in _do_get
+    return self._create_connection()
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/pool.py", line 333, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/pool.py", line 461, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/pool.py", line 651, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/strategies.py", line 105, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 393, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/MySQLdb/__init__.py", line 81, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/MySQLdb/connections.py", line 193, in __init__
+    super(Connection, self).__init__(*args, **kwargs2)
+sqlalchemy.exc.OperationalError: (_mysql_exceptions.OperationalError) (2003, "Can't connect to MySQL server on '127.0.0.1' (61)")
+
+/* Success - prints out the states table */
+
+(py2FlaskEnv) PB-MacBook-Pro:flask_mysql guest$ python server.py
+[{u'abbreviation': u'WA', u'update_time': datetime.datetime(2017, 2, 9, 14, 27, 56), u'create_time': datetime.datetime(2017, 2, 9, 14, 27, 56), u'id': 1L, u'name': u'Washington'}, {u'abbreviation': u'ID', u'update_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'create_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'id': 3L, u'name': u'Idaho'}, {u'abbreviation': u'OR', u'update_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'create_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'id': 4L, u'name': u'Oregon'}, {u'abbreviation': u'CA', u'update_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'create_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'id': 5L, u'name': u'California'}, {u'abbreviation': u'AK', u'update_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'create_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'id': 6L, u'name': u'Alaska'}, {u'abbreviation': u'DE', u'update_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'create_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'id': 7L, u'name': u'Delaware'}]
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+[{u'abbreviation': u'WA', u'update_time': datetime.datetime(2017, 2, 9, 14, 27, 56), u'create_time': datetime.datetime(2017, 2, 9, 14, 27, 56), u'id': 1L, u'name': u'Washington'}, {u'abbreviation': u'ID', u'update_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'create_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'id': 3L, u'name': u'Idaho'}, {u'abbreviation': u'OR', u'update_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'create_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'id': 4L, u'name': u'Oregon'}, {u'abbreviation': u'CA', u'update_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'create_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'id': 5L, u'name': u'California'}, {u'abbreviation': u'AK', u'update_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'create_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'id': 6L, u'name': u'Alaska'}, {u'abbreviation': u'DE', u'update_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'create_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'id': 7L, u'name': u'Delaware'}]
+ * Debugger is active!
+ * Debugger pin code: 448-860-233
+
+ /* With wrong root password (barney, should be root) */
+
+^C(py2FlaskEnv) PB-MacBook-Pro:flask_mysql guest$ python server.py
+Traceback (most recent call last):
+  File "server.py", line 8, in <module>
+    print mysql.query_db("SELECT * FROM states")
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/flask/flask_mysql/mysqlconnection.py", line 22, in query_db
+    result = self.db.session.execute(text(query), data)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/orm/scoping.py", line 157, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1107, in execute
+    bind, close_with_result=True).execute(clause, params or {})
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 971, in _connection_for_bind
+    engine, execution_options)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 403, in _connection_for_bind
+    conn = bind.contextual_connect()
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 2103, in contextual_connect
+    self._wrap_pool_connect(self.pool.connect, None),
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 2142, in _wrap_pool_connect
+    e, dialect, self)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1456, in _handle_dbapi_exception_noconnection
+    exc_info
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 203, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 2138, in _wrap_pool_connect
+    return fn()
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/pool.py", line 387, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/pool.py", line 766, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/pool.py", line 516, in checkout
+    rec = pool._do_get()
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/pool.py", line 1138, in _do_get
+    self._dec_overflow()
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/util/langhelpers.py", line 60, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/pool.py", line 1135, in _do_get
+    return self._create_connection()
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/pool.py", line 333, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/pool.py", line 461, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/pool.py", line 651, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/strategies.py", line 105, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 393, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/MySQLdb/__init__.py", line 81, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/guest/Documents/workspace/CodingDojo/PythonStack/myenvironments/py2FlaskEnv/lib/python2.7/site-packages/MySQLdb/connections.py", line 193, in __init__
+    super(Connection, self).__init__(*args, **kwargs2)
+sqlalchemy.exc.OperationalError: (_mysql_exceptions.OperationalError) (1045, "Access denied for user 'root'@'localhost' (using password: YES)")
+
+/* Success - prints out the states table */
+
+(py2FlaskEnv) PB-MacBook-Pro:flask_mysql guest$ python server.py
+None
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+None
+ * Debugger is active!
+ * Debugger pin code: 448-860-233
+^C(py2FlaskEnv) PB-MacBook-Pro:flask_mysql guest$ python server.py
+[{u'abbreviation': u'WA', u'update_time': datetime.datetime(2017, 2, 9, 14, 27, 56), u'create_time': datetime.datetime(2017, 2, 9, 14, 27, 56), u'id': 1L, u'name': u'Washington'}, {u'abbreviation': u'ID', u'update_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'create_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'id': 3L, u'name': u'Idaho'}, {u'abbreviation': u'OR', u'update_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'create_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'id': 4L, u'name': u'Oregon'}, {u'abbreviation': u'CA', u'update_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'create_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'id': 5L, u'name': u'California'}, {u'abbreviation': u'AK', u'update_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'create_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'id': 6L, u'name': u'Alaska'}, {u'abbreviation': u'DE', u'update_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'create_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'id': 7L, u'name': u'Delaware'}]
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+[{u'abbreviation': u'WA', u'update_time': datetime.datetime(2017, 2, 9, 14, 27, 56), u'create_time': datetime.datetime(2017, 2, 9, 14, 27, 56), u'id': 1L, u'name': u'Washington'}, {u'abbreviation': u'ID', u'update_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'create_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'id': 3L, u'name': u'Idaho'}, {u'abbreviation': u'OR', u'update_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'create_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'id': 4L, u'name': u'Oregon'}, {u'abbreviation': u'CA', u'update_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'create_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'id': 5L, u'name': u'California'}, {u'abbreviation': u'AK', u'update_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'create_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'id': 6L, u'name': u'Alaska'}, {u'abbreviation': u'DE', u'update_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'create_time': datetime.datetime(2017, 2, 9, 14, 45, 58), u'id': 7L, u'name': u'Delaware'}]
+ * Debugger is active!
+ * Debugger pin code: 448-860-233
+^C(py2FlaskEnv) PB-MacBook-Pro:flask_mysql guest$

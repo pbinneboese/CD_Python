@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>The Dojo Form</title>
+    <!-- linking a css style sheet -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/my_style_sheet.css') }}">
+    <!-- linking a javascript file -->
+    <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/my_script.js') }}"></script> -->
+  </head>
+  <body>
+    <h3>Check out this form!</h3>
+    <div id="myForm">
+      <form>
+        First Name:<input type="text" name="firstName">
+        Last Name:<input type="text" name="lastName" value="">
+        Email Address:<input type="text" name="emailAddr" value="">
+        Contact #:<input type="text" name="contactNum" value="">
+        <input type="submit" value="Add User">
+      </form>
+    </div>
+  </body>
+</html>

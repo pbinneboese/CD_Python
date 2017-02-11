@@ -1,0 +1,30 @@
+#wrapper{
+  width: 400px;
+  font-family:sans-serif;
+  /*text-align: center;*/
+  display: inline-block;
+  vertical-align: top;
+}
+h3{
+  color:blue;
+}
+.greenbox{
+  height: 100px;
+  width: 100px;
+  border: 2px solid black;
+  padding: 10px;
+  background-color: green;
+  color: white;
+  display:inline-block;
+  vertical-align: top;
+}
+.redbox{
+  height: 100px;
+  width: 100px;
+  border: 2px solid black;
+  padding: 10px;
+  background-color: red;
+  color: white;
+  display:inline-block;
+  vertical-align: top;
+}
