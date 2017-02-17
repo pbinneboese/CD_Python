@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>Add Email Address</title>
+    <!-- linking a css style sheet -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    <!-- error handler -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <p id="red">{{message}}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <h3>Login Below</h3>
+    <form action='/login' method='post'>
+      Email Address: <input type='text' name='user_email'>
+      Password: <input type='password' name='user_password'>
+      <input type='submit' value='Submit'>
+    </form>
+
+    <h3>First Time? Register Here</h3>
+    <p>Your username will be your email address</p>
+    <form action='/create_user' method='post'>
+      First Name: <input type='text' name='user_first_name'>
+      Last Name: <input type='text' name='user_last_name'>
+      Email Address: <input type='text' name='user_email'>
+      Password: <input type='password' name='user_password'>
+      Confirm Password: <input type='password' name='user_password2'>
+      <input type='submit' value='Submit'>
+    </form>
+
+  </body>
+</html>

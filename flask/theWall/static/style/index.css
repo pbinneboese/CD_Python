@@ -1,0 +1,23 @@
+.main_content{
+  width: 800px;
+  margin: 20px auto;
+}
+label{
+  display: block;
+}
+fieldset{
+  display: inline-block;
+  vertical-align: top;
+  width: 275px;
+  height: 150px;
+}
+.main_content{
+  border: 1px solid black;
+}
+#button{
+  background-color: lightblue;
+}
+table{
+  margin-left: 20px;
+  display: block;
+}

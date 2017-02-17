@@ -1,0 +1,63 @@
+  <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>The Wall</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/index.css') }}" media="screen" title="no title">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="main_content">
+      <div class="row">
+        <table class="table">
+          <thead>
+            <tr>
+              <td><h3 class="col-md-6 col-md-4">CodingDojo Wall</h3></td>
+              <td><p class="col-md-6 col-md-4">Welcom: "user_name"</p></td>
+              <td><form class="col-md-6 col-md-4" action="/logout" method="post">
+                <button type="submit" name="button">Logout</button>
+              </form></td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div><!-- end_of_main_content-->
+    {% with errors = get_flashed_messages() %}
+      {% if errors %}
+        {% for error in errors %}
+          <p>{{error}}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <div class="postArea" >
+      <p></p>
+      <!-- Message Post Form -->
+      <form class="form1" action="/post_message" method="post">
+        <textarea type="text" name="message" value=""></textarea><br>
+        <input id="button"  type="submit" name="" value="Post a message">
+      </form>
+      <!-- Message List -->
+      {% for the_message in messages %}
+      <p>{{the_message.first_name}} {{the_message.last_name}} {{the_message.date}} Wrote:</p>
+      <p>{{the_message.message}}</p>
+      <!-- Comment List -->
+      <ul>
+        {% for the_comment in comments %}
+          {% if the_comment.message_id == the_message.id %}
+            <li>USER {{the_comment.user_id}} MSG {{the_comment.message_id}} {{the_comment.date}}
+            <p>{{the_comment.comment}}</p></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      <!-- Comment Post Form -->
+      <form class="form1" action="/post_comment/{{the_message.id}}" method="post">
+        <textarea type="text" name="comment" value=""></textarea><br>
+        <input id="button"  type="submit" name="" value="Post a comment">
+      </form>
+      {% endfor %}
+    </div>
+
+  </body>
+</html>

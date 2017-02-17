@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>CodingDojo Wall</title>
+  </head>
+  <body>
+    <div class="main_content">
+      <h1>Welcome to the wall page!</h1>
+      <form class="logout" action="/logout" method="post">
+        <button type="submit" name="button">Logout</button>
+      </form>
+      {% with errors = get_flashed_messages() %}
+        {% if errors %}
+          {% for error in errors %}
+            <p>{{error}}</p>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <p>Post your message:</p>
+      <form action="/post_message" method="post">
+        <textarea name="message" rows="3" cols="50"></textarea>
+        <button type="submit" name="button">Submit</button>
+      </form>
+
+      {% for the_post in messages %}
+      <p>{{the_post.name}} {{the_post.date}}</p>
+        <p>{{the_post.message}}</p>
+        <p></p>
+      {% endfor %}
+    </div><!-- end_of_main_content-->
+  </body>
+</html>
