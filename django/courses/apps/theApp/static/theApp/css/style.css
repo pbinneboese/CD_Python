@@ -1,0 +1,42 @@
+h3{
+  color:blue;
+}
+table, th{
+  border: 1px solid black;
+  padding: 5px;
+  text-align: left;
+}
+.red{
+  background-color: red;
+}
+.green{
+  background-color: green;
+}
+.gray{
+  background-color: gray;
+}
+.line{
+  width: 25%;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  display:block;
+  text-align: center;
+}
+
+#formBox{
+  width:50%;
+  border:2px solid red;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: lightpink;
+  display:inline-block;
+}
+
+#resultsBox{
+  width:50%;
+  border:2px solid red;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: lightpink;
+}

@@ -1,0 +1,38 @@
+h3{
+  width: 25%;
+  text-align: center;
+  background-color: green;
+}
+h4{
+  font-weight: bold;
+  text-decoration: underline;
+}
+img{
+  margin-left: 10px;
+  border: 2px solid green;
+}
+.line{
+  width: 50%;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: beige;
+  display:block;
+}
+
+#formBox{
+  width:50%;
+  border:2px solid red;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: lightpink;
+  display:inline-block;
+}
+
+#resultsBox{
+  width:50%;
+  border:2px solid red;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: lightpink;
+}

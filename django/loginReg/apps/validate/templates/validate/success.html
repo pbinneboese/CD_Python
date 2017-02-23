@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Success Page</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'validate/css/style.css'%}" media="screen" title="no title"  charset="utf-8">
+  </head>
+  <body>
+    <h3>Success! Welcome, {{request.session.first_name}}!</h3>
+    <p class="green">Successfully registered (or logged in)!</p>
+  </body>
+</html>

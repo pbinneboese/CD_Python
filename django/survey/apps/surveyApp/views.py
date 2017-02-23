@@ -12,20 +12,25 @@ def index(request):
     check_init(request)
     return render(request, "surveyApp/index.html")
 
-def result(request, context):
-    return render(request, "surveyApp/result.html", context)
+def result(request):
+    return render(request, "surveyApp/result.html")
 
 def process(request):
     if request.method == "POST":
-        print "REQUEST= ", request.POST
-        context = {
-            'name': request.POST['name'],
-            'dojo_location': request.POST['dojo_location'],
-            'favorite_language': request.POST['favorite_language'],
-            'comment': request.POST['comment']
-        }
-        print "CONTEXT= ", context
         request.session['times'] = request.session['times'] + 1
-        return redirect("/result", context)
+        request.session['name'] = request.POST['name']
+        request.session['dojo_location'] = request.POST['dojo_location']
+        request.session['favorite_language'] = request.POST['favorite_language']
+        request.session['comment'] = request.POST['comment']
+        print "SESSION= ", request.session
+        return redirect("/result")
+        # context = {
+        #     'name': request.POST['name'],
+        #     'dojo_location': request.POST['dojo_location'],
+        #     'favorite_language': request.POST['favorite_language'],
+        #     'comment': request.POST['comment']
+        # }
+        # print "CONTEXT= ", context
+        # return redirect("/result", context)
     else:
         return redirect("/")

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Success Page</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'WallApp/css/style.css'%}" media="screen" title="no title"  charset="utf-8">
+  </head>
+  <body>
+    <div class="main_content">
+      <h1>Welcome to the success page!</h1>
+      <form class="logout" action="{% url 'WallApp:logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" name="button">Logout</button>
+      </form>
+      <h2>Add a message</h2>
+      <form class="" action="/create_message" method="post">
+        <textarea name="content" rows="4" cols="30"></textarea>
+        <input type="submit" name="" value="Add message">
+      </form>
+      {% for message in messages %}
+        <p>{{ message.full_name }} on {{message.formated_date}} wrote:</p>
+        <blockquote>{{ message.content }}</blockquote>
+        <!-- if the message was created by the user, and was made in the last 30 mins allow user to delete message -->
+        {% if message.user_id == session.user_id and message['can_delete'] %}
+          <form class="" action="/delete_message/{{ message.id }}" method="post">
+            <input type="submit" name="" value="Delete">
+          </form>
+        {% endif %}
+        <ul>
+          {% for comment in comments %}
+            {% if comment.message_id == message.id %}
+              <li>{{ comment.full_name }} on {{ comment.formated_date }} wrote:</li>
+              <blockquote >{{ comment.content }}</blockquote>
+            {% endif %}
+          {% endfor %}
+        </ul>
+        <form class="" action="/create_comment/{{ message.id }}" method="post">
+          <textarea name="content" rows="4" cols="30"></textarea>
+          <input type="submit" name="" value="Add comment">
+        </form>
+        <hr>
+      {% endfor %}
+    </div><!-- end_of_main_content-->
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bootcamp Course User Roster</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'courses/css/style.css'%}" media="screen" title="no title"  charset="utf-8">
+  </head>
+  <body>
+    <h3>Bootcamp Course Roster</h3>
+		<form action="{% url 'courses:add_user' %}" method="post">
+      {% csrf_token %}
+      <select name="user_id">
+        <option value="0" selected>Users</option>
+        {% for user in the_users %}
+        <option value="{{user.id}}">{{user.last_name}}</option>
+        {% endfor %}
+      </select>
+      <select name="course_id">
+        <option value="0" selected>Courses</option>
+        {% for course in the_courses %}
+        <option value="{{course.id}}">{{course.name}}</option>
+        {% endfor %}
+      </select>
+			<p></p>
+      <input type="submit" value="Add User to Course">
+    </form>
+    <p></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Course</th>
+          <th>Title</th>
+          <th>Number of Users</th>
+          <th>List of Users Enrolled</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for course in the_courses %}
+          <tr>
+            <td>{{course.id}}</td>
+            <td>{{course.name}}</td>
+            <td>{{course.users.count}}</td>
+            <td>{% for user in course.users.all %} {{user.last_name}} {% endfor %}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p></p>
+    <form action="{% url 'courses:index' %}" method="post">
+      {% csrf_token %}
+      <input class="green" type="submit" name="return" value="Return Home">
+    </form>
+  </body>
+</html>
