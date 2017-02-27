@@ -2,40 +2,45 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Success Page</title>
+    <title>The Wall: Success</title>
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'WallApp/css/style.css'%}" media="screen" title="no title"  charset="utf-8">
   </head>
   <body>
     <div class="main_content">
-      <h1>Welcome to the success page!</h1>
+      <h1>Welcome to the Wall!</h1>
       <form class="logout" action="{% url 'WallApp:logout' %}" method="post">
         {% csrf_token %}
         <button type="submit" name="button">Logout</button>
       </form>
-      <h2>Add a message</h2>
+      <h2>Add a Post</h2>
       <form class="" action="/create_message" method="post">
+        {% csrf_token %}
         <textarea name="content" rows="4" cols="30"></textarea>
-        <input type="submit" name="" value="Add message">
+        <input type="submit" name="" value="Post message">
       </form>
+      <hr>
       {% for message in messages %}
-        <p>{{ message.full_name }} on {{message.formated_date}} wrote:</p>
+        <h4>Post #{{ message.id }}</h2>
+        <p>{{ message.user.first_name }} {{ message.user.last_name }} on {{message.created_at}} wrote:</p>
         <blockquote>{{ message.content }}</blockquote>
         <!-- if the message was created by the user, and was made in the last 30 mins allow user to delete message -->
-        {% if message.user_id == session.user_id and message['can_delete'] %}
+        {% if message.user.id == request.session.user_id %}
           <form class="" action="/delete_message/{{ message.id }}" method="post">
+            {% csrf_token %}
             <input type="submit" name="" value="Delete">
           </form>
         {% endif %}
         <ul>
           {% for comment in comments %}
-            {% if comment.message_id == message.id %}
-              <li>{{ comment.full_name }} on {{ comment.formated_date }} wrote:</li>
+            {% if comment.message.id == message.id %}
+              <li>{{ comment.user.first_name }} {{ comment.user.last_name }} on {{comment.created_at}} commented:</li>
               <blockquote >{{ comment.content }}</blockquote>
             {% endif %}
           {% endfor %}
         </ul>
         <form class="" action="/create_comment/{{ message.id }}" method="post">
+          {% csrf_token %}
           <textarea name="content" rows="4" cols="30"></textarea>
           <input type="submit" name="" value="Add comment">
         </form>

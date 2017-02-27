@@ -36,14 +36,11 @@ class UserManager(models.Manager):
 			errors.append('Passwords do not match, please re-enter')
 
 		if errors:  # If we fail the validations
-			# for error in errors:
-				# print "ERROR ", type(error), error
 			return {'status':False, 'errors':errors}
 		else:  # Successfully Registered
 			# encrypt password
 			password = str(postData['password'])
 			hashed_pw = bcrypt.hashpw(password, bcrypt.gensalt())
-			# print "PASSWORD= ", hashed_pw
 			# create our user
 			this_user = self.create(first_name=postData['first_name'], last_name=postData['last_name'], email=postData['email'], password=hashed_pw)
 			print "NEW USER= ", this_user.id
@@ -64,8 +61,6 @@ class UserManager(models.Manager):
 				errors.append('Password invalid, try again')
 
 		if errors:  # If we fail the validations
-			# for error in errors:
-				# print "ERROR ", type(error), error
 			return {'status':False, 'errors':errors}
 		else:  # Successfully Logged In
 			print "LOGGED IN= ", this_user.id
@@ -74,7 +69,7 @@ class UserManager(models.Manager):
 class MessageManager(models.Manager):
 	def show_messages(self, postData):  # for showing all messages by this user
 		errors = []
-        messages = self.filter(user=postData['user_id'])
+		messages = self.filter(user=postData['user_id'])
 		if errors:
 			return {'status':False, 'errors':errors}
 		else:
@@ -82,30 +77,26 @@ class MessageManager(models.Manager):
 
 	def create_message(self, postData):  # for creating a new message
 		errors = []
-		this_message = self.create(message=postData['message'], user=postData['user_id'])
-		if errors:  # If we fail the validations
-			# for error in errors:
-				# print "ERROR ", type(error), error
+		user = User.objects.get(id=postData['user_id'])
+		message = self.create(content=postData['content'], user=user)
+		if errors:
 			return {'status':False, 'errors':errors}
-		else:  # Successfully Logged In
-			print "LOGGED IN= ", this_user.id
-			return {'status':True, 'user':this_user}
+		else:
+			return {'status':True, 'message':message}
 
 	def delete_message(self, postData):  # for deleting a message
 		errors = []
-		status = self.delete(id=postData['message_id'])
-		if errors:  # If we fail the validations
-			# for error in errors:
-				# print "ERROR ", type(error), error
+		message = self.get(id=postData['message_id'])
+		message.delete()
+		if errors:
 			return {'status':False, 'errors':errors}
-		else:  # Successfully Logged In
-			print "LOGGED IN= ", this_user.id
-			return {'status':True, 'user':this_user}
+		else:
+			return {'status':True, 'message':message}
 
 class CommentManager(models.Manager):
 	def show_comments(self, postData):  # for showing all comments by this user
 		errors = []
-        comments = self.filter(user=postData['user_id'])
+		comments = self.filter(user=postData['user_id'])
 		if errors:
 			return {'status':False, 'errors':errors}
 		else:
@@ -113,48 +104,44 @@ class CommentManager(models.Manager):
 
 	def create_comment(self, postData):  # for creating a new comment
 		errors = []
-		this_comment = self.create(comment=postData['comment'], user=postData['user_id'])
-		if errors:  # If we fail the validations
-			# for error in errors:
-				# print "ERROR ", type(error), error
+		message = Message.objects.get(id=postData['message_id'])
+		user = User.objects.get(id=postData['user_id'])
+		comment = self.create(content=postData['content'], message=message, user=user)
+		if errors:
 			return {'status':False, 'errors':errors}
-		else:  # Successfully Logged In
-			print "LOGGED IN= ", this_user.id
-			return {'status':True, 'user':this_user}
+		else:
+			return {'status':True, 'comment':comment}
 
 	def delete_comment(self, postData):  # for deleting a comment
 		errors = []
-		status = self.delete(id=postData['comment_id'])
-		if errors:  # If we fail the validations
-			# for error in errors:
-				# print "ERROR ", type(error), error
+		comment = self.get(id=postData['comment_id'])
+		comment.delete()
+		if errors:
 			return {'status':False, 'errors':errors}
-		else:  # Successfully Logged In
-			print "LOGGED IN= ", this_user.id
-			return {'status':True, 'user':this_user}
+		else:
+			return {'status':True, 'comment':comment}
 
 # Create your models here.
 class User(models.Model):
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    email = models.EmailField()
-    password = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+	first_name = models.CharField(max_length=255)
+	last_name = models.CharField(max_length=255)
+	email = models.EmailField()
+	password = models.CharField(max_length=255)
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
 	objects = UserManager()
 
 class Message(models.Model):
-    message = models.TextField()
-    user = models.ForeignKey(User, related_name='messages_user')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+	content = models.TextField()
+	user = models.ForeignKey(User, related_name='messages_user')
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
 	objects = MessageManager()
 
 class Comment(models.Model):
-    comment = models.TextField()
-    message = models.ForeignKey(Message)
-    user = models.ForeignKey(User)
-    message = models.ForeignKey(Message, related_name = 'comments_msg')
-    user = models.ForeignKey(User, related_name = 'comments_user')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+	content = models.TextField()
+	message = models.ForeignKey(Message, related_name = 'comments_msg')
+	user = models.ForeignKey(User, related_name = 'comments_user')
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+	objects = CommentManager()

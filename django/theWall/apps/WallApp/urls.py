@@ -6,8 +6,8 @@ urlpatterns = [
 	url(r"^register$", views.register, name="register"),
 	url(r"^login$", views.login, name="login"),
 	url(r"^logout$", views.logout, name="logout"),
-	url(r"^success$", views.success, name="success")
-    url(r'^create_message$', views.create_message, name="create_message"),
-    url(r'^create_comment$', views.create_comment, name="create_comment"),
-    url(r'^delete_message$', views.delete_message, name="delete_message"),
+	url(r"^success$", views.success, name="success"),
+    url(r"^create_message$", views.create_message, name="create_message"),
+    url(r"^create_comment/(?P<message_id>\d+)$", views.create_comment, name="create_comment"),
+    url(r"^delete_message/(?P<message_id>\d+)$", views.delete_message, name="delete_message"),
 ]
