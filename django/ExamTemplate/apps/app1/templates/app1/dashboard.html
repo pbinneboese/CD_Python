@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>What's Up</title>
+		{% load tz %}
+		{% load staticfiles %}
+		<link rel="stylesheet" href="{% static 'app1/css/style.css'%}" media="screen" title="no title"  charset="utf-8">
+	</head>
+	<body>
+		<div class="main_content">
+			<h1>Hello, {{ request.session.name }}!</h1>
+			<!-- Buttons -->
+			<form class="logout" action="{% url 'LoginReg:logout' %}" method="post">
+				{% csrf_token %}
+				<button type="submit" name="button">Logout</button>
+			</form>
+
+			<!-- Display Today's Appointments -->
+			<h2>Here are your appointments for today, {{this_date}}</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>Tasks</th>
+						<th>Time</th>
+						<th>Status</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% if today_appts %}
+						{% for appt in today_appts %}
+						<tr>
+							<td>{{appt.task}}</td>
+							<td>{{appt.time}}</td>
+							<td>{{appt.status}}</td>
+							{% if appt.status != "Done" %}
+								<td><a href="edit_appt/{{appt.id}}">Edit</a> <a href="delete_appt/{{appt.id}}">Delete</a></td>
+							{% endif %}
+						</tr>
+						{% endfor %}
+					{% endif %}
+				</tbody>
+			</table>
+
+			<!-- Display Future Appointments -->
+			<h2>Your Future appointments</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>Tasks</th>
+						<th>Date</th>
+						<th>Time</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% if future_appts %}
+						{% for appt in future_appts %}
+						<tr>
+							<td>{{appt.task}}</td>
+							<td>{{appt.date}}</td>
+							<td>{{appt.time}}</td>
+						</tr>
+						{% endfor %}
+					{% endif %}
+				</tbody>
+			</table>
+
+			<!-- Add Appointment Form -->
+			<p></p>
+			<hr>
+			<p></p>
+			<fieldset>
+				<legend>Add Appointment</legend>
+				<form class="newform" action="{% url 'app1:create_appt' %}" method="post">
+					{% csrf_token %}
+					<label for="appt_date">Date:
+						<input type="date" name="appt_date" value="{{this_date}}">
+					</label>
+					<label for="appt_time">Time:
+						<input type="time" name="appt_time" value="{{this_time}}">
+					</label>
+					<label for="appt_task">Tasks:
+						<input type="text" name="appt_task" value="">
+					</label>
+					<button type="submit" name="button">Add</button>
+				</form>
+			</fieldset>
+
+			<!-- flash any error messages -->
+			{% if messages %}
+				<ul class="messages">
+					{% for message in messages %}
+						<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		</div><!-- end_of_main_content-->
+	</body>
+</html>

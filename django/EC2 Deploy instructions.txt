@@ -1,0 +1,94 @@
+[Prep Files, Upload to GitHub]
+pip freeze >requirements.txt  <save all required pip modules>
+vim .gitignore
+  *.pyc
+  venv/
+git init, add --all, commit -m "<comment>"
+git remote add origin https://github.com/pbinneboese/<project>.git
+git push origin master
+
+[Log into AWS]
+Connect to EC2, Launch Instance, Select Ubuntu Server, Choose Instance free-tier
+Edit security - configure for SSH/HTTP/HTTPS. (SSH - myIP, others Anywhere)
+Select keyfile, View & Name instance, Launch, Connect
+Connect in Terminal using SSH:
+cd to folder with AWS keys
+chmod 400 key.pem
+ssh -i "key.pem" ubuntu@<public DNS>
+
+[Now inside the Ubuntu shell, install the venv]
+sudo apt-get update
+sudo apt-get install python-pip python-dev nginx git
+sudo apt-get update
+sudo pip install virtualenv
+git clone https://github.com/pbinneboese/<repo>.git
+ls to see repo structure
+cd into <repo>
+virtualenv venv
+source venv/bin/activate
+pip install -r requirements.txt <installs required pip modules>; or
+pip install django <plus bcrypt and other required modules>
+pip install gunicorn
+cd into <project>
+
+[Tweak files]
+sudo vim settings.py
+	# Inside settings.py, modify these lines
+	DEBUG = False
+	ALLOWED_HOSTS = ['<yourEC2.public.ip>']
+	# add the line below to the bottom of the file
+	STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+cd ..
+python manage.py collectstatic  (answer yes)
+gunicorn --bind 0.0.0.0:8000 <project>.wsgi:application
+ctrl-c, then deactivate
+
+sudo vim /etc/systemd/system/gunicorn.service
+[Unit]
+Description=gunicorn daemon
+After=network.target
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/<repo>
+ExecStart=/home/ubuntu/<repo>/venv/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/<repo>/<project>.sock <project>.wsgi:application
+[Install]
+WantedBy=multi-user.target
+
+[Start gunicorn & nginx services]
+sudo systemctl daemon-reload
+sudo systemctl start gunicorn
+sudo systemctl enable gunicorn
+
+sudo vim /etc/nginx/sites-available/<project>
+server {
+  listen 80;
+  server_name <yourPublicIP>;
+  location = /favicon.ico { access_log off; log_not_found off; }
+  location /static/ {
+    root /home/ubuntu/<myRepo>;
+  }
+  location / {
+    include proxy_params;
+    proxy_pass http://unix:/home/ubuntu/<myRepo>/<project>.sock;
+  }
+}
+
+sudo ln -s /etc/nginx/sites-available/<project> /etc/nginx/sites-enabled
+sudo nginx -t
+sudo rm /etc/nginx/sites-enabled/default
+sudo service nginx restart
+navigate to IP address to run your app
+
+[Possible Errors]
+502 bad gateway = error in app code
+Gunicorn won't start = check .service file
+NGINX restart fails = check sites-available NGINX file
+
+[Reload new project onto server]
+sudo service nginx stop
+sudo systemctl stop gunicorn
+sudo rm -rf <project>
+git clone https://github.com/pbinneboese/<repo>.git
+and continue from there to install venv, etc.

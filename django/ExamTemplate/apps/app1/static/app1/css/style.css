@@ -1,0 +1,67 @@
+*{
+  /*margin: 0px;*/
+  /*padding: 0px;*/
+  font-family: helvetica, arial, sans-serif;
+  /*font-family: "Comic Sans", Verdana, sans-serif;*/
+  /*font-family: "Times New Roman", Times, serif;*/
+  /*font-size: 1em;*/
+}
+div{
+  margin-top: 5px;
+  padding: 5px;
+}
+label{
+  display: block;
+}
+fieldset{
+  display: inline-block;
+  vertical-align: top;
+  width: 275px;
+  height: auto;
+}
+
+h3{
+  width: 25%;
+  text-align: center;
+  background-color: green;
+}
+h4{
+  font-weight: bold;
+  text-decoration: underline;
+}
+tr, td{
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.main_content{
+  width: 800px;
+  margin: 0 auto;
+}
+.messages{
+  color: red;
+}
+.line{
+  width: 50%;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: beige;
+  display:block;
+}
+
+#formBox{
+  width:50%;
+  border:2px solid red;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: lightpink;
+  display:inline-block;
+}
+#resultsBox{
+  width:50%;
+  border:2px solid red;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: lightpink;
+}
